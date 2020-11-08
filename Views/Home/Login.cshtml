@@ -1,0 +1,72 @@
+﻿@{
+	ViewData["Title"] = "Login Page";
+}
+ 
+	<span class="invalidOtp" style="color:red;font-size:large;display:none">Invalid Otp</span>
+ 
+<div class="text-center">
+	<form>
+		<input type="number"id="mobileNo" name="mobileNo" maxlength="10" minlength="10" />
+		<button type="submit" onclick="sendOtp()">Send Otp</button>
+	</form>
+	<span class="otpsent" style="display:none">Otp Sent</span>
+	<a class="resend"  onclick="sendOtp()"style="display:none">resend Otp </a>
+	<form action="/Home/ValidateOtp" class="verifyOTP" style="display:none">
+		<input type="number" class="verifyOtp" name="otp" maxlength="6" minlength="6" />
+ 
+		<button type="submit" onclick="verifyotp()">Validate Otp</button>
+	</form>
+</div>
+<script>
+		function sendOtp() {
+			event.preventDefault();
+	 
+			$('.verifyOTP').hide();
+			$('.otpsent').hide();
+			$('.resend').hide();
+			var value = $('#mobileNo').val()
+			$.ajax({
+				type: 'GET',
+				//contentType: "application/x-www-form-urlencoded",
+				contentType: "application/x-www-form-urlencoded",
+				url: '/Home/GenerateOtp?value=' + value,
+				//data: value,
+				success: function (data) {
+					if (data.isSuccess) {
+						$('.verifyOTP').show();
+						$('.otpsent').show();
+						$('.resend').show();
+						$('#verifyMobile').val(value);
+					}
+
+				}
+			});
+
+	}
+
+	function verifyotp() {
+		event.preventDefault();
+		var value = $('.verifyOtp').val()
+		$('.invalidOtp').hide()
+		//$('.verifyOTP').hide();
+		//$('.otpsent').hide();
+		//$('.resend').hide();
+		var mobileNo = $('#mobileNo').val()
+		$.ajax({
+			type: 'GET',
+			//contentType: "application/x-www-form-urlencoded",
+			contentType: "application/x-www-form-urlencoded",
+			url: '/Home/verifyotp?otp=' + value,
+			//data: value,
+			success: function (data) {
+				if (data.isSuccess) {
+					window.location.href = "/Home/ValidOtp?mobileNo=" + mobileNo
+				}
+				else {
+					$('.invalidOtp').show()
+				}
+			}
+		});
+
+	}
+</script>

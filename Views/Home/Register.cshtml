@@ -1,0 +1,17 @@
+﻿@model OTPLogin.User
+@{
+	ViewData["Title"] = "Login Page";
+}
+@if (ViewData["Error"] != null)
+{
+	<span style="color:red;font-size:large">ViewData["Error"]</span>
+}
+<div class="text-center">
+	<form action="/Home/RegisterNewUser">
+		<input type="hidden" id="mobileNo" name="mobileNo" maxlength="10" minlength="10" value="@Model.MobileNo" />
+		<input type="text" id="name" name="name" required />
+		<input type="email" id="email" name="email" required />
+		<button type="submit" onclick="RegisterUser()">Send Otp</button>
+	</form>
+ 
+</div>
