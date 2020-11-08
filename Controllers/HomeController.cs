@@ -102,18 +102,18 @@ namespace OTPLogin.Controllers
             string msg = HttpUtility.UrlEncode("Otp is " + otp);
             using (var client = new WebClient())
             {
-                //byte[] res = client.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
-                //{
-                //    { "apiKey",ApiKey},
-                //    {"numbers", value },
-                //    {"message",msg },
-                //    { "sender","TXTLCL"}
-                //});
-                //var json = JObject.Parse(Encoding.UTF8.GetString(res));
-                //var status = json["status"].ToString();
+                byte[] res = client.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
+                {
+                    { "apikey",ApiKey},
+                    {"numbers", value },
+                    {"message",msg },
+                    { "sender","txtlcl"}
+                });
+                var json = JObject.Parse(Encoding.UTF8.GetString(res));
+                var status = json["status"].ToString();
                 _contextAccessor.HttpContext.Session.SetString("otp", otp.ToString());
-                return Json(new { isSuccess = true });
-                    //return Json(new {isSuccess=( status == "success") });
+                
+                    return Json(new {isSuccess=( status == "success") });
               
          
 
