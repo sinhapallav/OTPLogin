@@ -6,13 +6,17 @@
  
 <div class="text-center">
 	<form>
-		<input type="number"id="mobileNo" name="mobileNo" maxlength="10" minlength="10" />
+		<label>Enter Mobile Number</label>
+		<input type="tel"id="mobileNo" name="mobileNo" maxlength="10" minlength="10" required />
+		<br />
 		<button type="submit" onclick="sendOtp()">Send Otp</button>
 	</form>
 	<span class="otpsent" style="display:none">Otp Sent</span>
-	<a class="resend"  onclick="sendOtp()"style="display:none">resend Otp </a>
+ 
+	<button class="resend"  onclick="sendOtp()"style="display:none">resend Otp </button>
 	<form action="/Home/ValidateOtp" class="verifyOTP" style="display:none">
-		<input type="number" class="verifyOtp" name="otp" maxlength="6" minlength="6" />
+		<label>Verify Otp</label>
+		<input type="tel" class="verifyOtp" name="otp" maxlength="6" minlength="6" />
  
 		<button type="submit" onclick="verifyotp()">Validate Otp</button>
 	</form>
